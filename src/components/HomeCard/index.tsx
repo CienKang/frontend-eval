@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BOOKMARK_EVENT_BY_ID } from '../../constants/ApiEndPoints';
 import { EventDetails } from '../../types';
 import { getFormattedDateFromUtcDate } from '../../utils/common';
@@ -6,7 +7,7 @@ import makeRequest from '../../utils/makeRequest';
 
 import './HomeCard.css';
 
-const HomeCard = (prop: EventDetails) => {
+const HomeCard = (prop: EventDetails) :JSX.Element=> {
 
     const date = new Date(prop.datetime).toDateString();
     const [isBookMarked, setBookMarked] = useState(prop.isBookmarked);
@@ -19,8 +20,12 @@ const HomeCard = (prop: EventDetails) => {
             console.log(data);
         });
     };
+    const navigate = useNavigate();
+    const handleClickCard = () =>{
+        navigate(`/event/${prop.id}`);
+    };
     return (
-        <div className="card">
+        <div className="card" onClick={handleClickCard} >
             <img src={prop.imgUrl} alt={prop.name} />
             <div className='break-line'></div>
             <div className='card-details'>

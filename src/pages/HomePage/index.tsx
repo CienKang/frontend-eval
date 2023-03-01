@@ -8,14 +8,14 @@ import makeRequest from '../../utils/makeRequest';
 
 const HomePage = () => {
     const [eventsData, setEventsData] = useState<EventDetails[]>([]);
-
+    const [search, setSearch] = useState<string>('');
 
 
     useEffect(() => {
         makeRequest({...GET_ALL_EVENTS},{}).then(data => {
             setEventsData(data);
             // setEventsData(eventsData.sort((a,b) => {
-            //     return new Date(a.datetime).getTime() - new Date(b.datetime).getTime();
+            //     return new Date(b.datetime).getTime() - new Date(a.datetime).getTime();
             // }));
             console.log(data);
         });

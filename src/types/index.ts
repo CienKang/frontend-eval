@@ -3,7 +3,7 @@ export interface EventDetails {
     name: string;
     description: string;
     venue: string;
-    datetime: Date;
+    datetime: string;
     timezone : string;
     areSeatsAvailable: boolean;
     isRegistered: boolean;

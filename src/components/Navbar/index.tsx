@@ -1,10 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar:React.FC = () :JSX.Element => {
+const Navbar= () => {
+    const handleLogoClick = () => {
+        window.location.href = '/';
+    };
     return ( 
         <header>
-            <span>EVENTIFY</span>
+            <span onClick={handleLogoClick}>EVENTIFY</span>
         </header>
     );
 };
