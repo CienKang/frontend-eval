@@ -12,7 +12,7 @@ const HomePage = () => {
     const [filters, setFilters] = React.useState<FilterTypes>({
         0: {
             'name': 'ALL',
-            'checked': false
+            'checked': true
         },
         1: {
             'name': 'BOOKMARKED',
@@ -37,6 +37,8 @@ const HomePage = () => {
             // }));
             console.log(data);
         });
+
+        setFilters({...filters});
     },[]); 
     
     useEffect(() => {
@@ -53,11 +55,39 @@ const HomePage = () => {
         {
             makeRequest({...GET_ALL_EVENTS},{}).then(data => {
                 setEventsData(data);
-                console.log(data);
             });
         }
 
-    },[search, filters]);
+        if(filters[0].checked){
+            makeRequest({...GET_ALL_EVENTS},{}).then(data => {
+                setEventsData(data);
+            });
+        }
+        else if(filters[1].checked){
+            makeRequest({...GET_ALL_EVENTS},{}).then(data => {
+                setEventsData(data.filter((event:any) => {
+                    return event.isBookmarked === false;
+                }));
+            });
+        }
+        else if(filters[2].checked){
+            makeRequest({...GET_ALL_EVENTS},{}).then(data => {
+                setEventsData(data.filter((event:any) => {
+                    return event.isRegistered === true;
+                }));
+            }
+            );
+        }
+        else if(filters[3].checked){
+            makeRequest({...GET_ALL_EVENTS},{}).then(data => {
+                setEventsData(data.filter((event:any) => {
+                    return event.areSeatsAvailable === true;
+                }));
+            });
+        }
+
+
+    },[search,filters]);
     return ( 
         <div className="home-page">
             <FilterBar filters={filters} setFilters={setFilters} setSearch={setSearch} />

@@ -25,8 +25,8 @@ const HomeCard = (prop: EventDetails) :JSX.Element=> {
         navigate(`/event/${prop.id}`);
     };
     return (
-        <div className="card" onClick={handleClickCard} >
-            <img src={prop.imgUrl} alt={prop.name} />
+        <div className="card"  >
+            <img src={prop.imgUrl} alt={prop.name} onClick={handleClickCard} />
             <div className='break-line'></div>
             <div className='card-details'>
                 <h1>{prop.name.toUpperCase()}</h1>
@@ -35,12 +35,14 @@ const HomeCard = (prop: EventDetails) :JSX.Element=> {
                 <span className='card-venue' > <b className='bolder'> DATE </b> : {getFormattedDateFromUtcDate(date)} </span>
                 <div className='card-buttons'>
                     {
-                        !areSeatsAvailable ? (
+                        areSeatsAvailable ? (
+                            <></>
+                        ) : (
                             <div className='card-reject row-wise btn'>
                                 <i className="fa-solid fa-circle-xmark fa-2x"></i>
                                 <span> NO SEATS AVAILABLE</span>
                             </div>
-                        ) : (<></>)
+                        )
                     }
                     {
                         isRegistered ? (
