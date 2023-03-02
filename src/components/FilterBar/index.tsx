@@ -17,6 +17,8 @@ const FilterBar = ({filters , setFilters , setSearch}: FilterProps ) => {
 
     const handleClickFilter = (idx:number) =>{
         const newFilters = {...filters};
+        for(let i=0;i<4;i++)
+            newFilters[i].checked = false;
         newFilters[idx].checked = !newFilters[idx].checked;
         setFilters(newFilters);
     };

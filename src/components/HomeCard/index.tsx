@@ -15,9 +15,9 @@ const HomeCard = (prop: EventDetails) :JSX.Element=> {
     const [areSeatsAvailable, setSeatsAvailable] = useState(prop.areSeatsAvailable);
 
     const handleBookmarkClick = async() => {
-        setBookMarked(!isBookMarked);
         makeRequest({...BOOKMARK_EVENT_BY_ID(prop.id)},{data:{'isBookmarked' : !isBookMarked}}).then(data => {
             console.log(data);
+            setBookMarked(!isBookMarked);
         });
     };
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ const HomeCard = (prop: EventDetails) :JSX.Element=> {
                 <span className='card-venue' > <b className='bolder'> DATE </b> : {getFormattedDateFromUtcDate(date)} </span>
                 <div className='card-buttons'>
                     {
-                        areSeatsAvailable ? (
+                        prop.areSeatsAvailable ? (
                             <></>
                         ) : (
                             <div className='card-reject row-wise btn'>
@@ -45,7 +45,7 @@ const HomeCard = (prop: EventDetails) :JSX.Element=> {
                         )
                     }
                     {
-                        isRegistered ? (
+                        prop.isRegistered ? (
                             <div className='card-register row-wise  btn'>
                                 <i className="fa-solid fa-circle-check fa-2x"></i>
                                 <span>REGISTERED</span>

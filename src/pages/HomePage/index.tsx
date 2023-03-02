@@ -43,21 +43,6 @@ const HomePage = () => {
     
     useEffect(() => {
 
-        if(search !== ''){
-            makeRequest({...GET_ALL_EVENTS},{}).then(data => {
-                setEventsData(data.filter((event:any) => {
-                    return event.name.toLowerCase().includes(search.toLowerCase());
-                }));
-            });
-        }
-
-        if(search==='')
-        {
-            makeRequest({...GET_ALL_EVENTS},{}).then(data => {
-                setEventsData(data);
-            });
-        }
-
         if(filters[0].checked){
             makeRequest({...GET_ALL_EVENTS},{}).then(data => {
                 setEventsData(data);
@@ -87,7 +72,25 @@ const HomePage = () => {
         }
 
 
-    },[search,filters]);
+    },[filters]);
+
+    useEffect(() => {
+        if(search !== ''){
+            makeRequest({...GET_ALL_EVENTS},{}).then(data => {
+                setEventsData(data.filter((event:any) => {
+                    return event.name.toLowerCase().includes(search.toLowerCase());
+                }));
+            });
+        }
+
+        if(search==='')
+        {
+            makeRequest({...GET_ALL_EVENTS},{}).then(data => {
+                setEventsData(data);
+            });
+        }
+    },[search]);
+    
     return ( 
         <div className="home-page">
             <FilterBar filters={filters} setFilters={setFilters} setSearch={setSearch} />
